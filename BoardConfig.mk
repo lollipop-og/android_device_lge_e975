@@ -16,16 +16,18 @@
 
 include device/lge/gproj-common/BoardConfigCommon.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/lge/e975/include
+## TARGET_SPECIFIC_HEADER_PATH := device/lge/e975/include
 
 BOARD_KERNEL_CMDLINE := vmalloc=600M console=null lpj=67677 user_debug=31 msm_rtb.filter=0x0 ehci-hcd.park=3 coresight-etm.boot_enable=0 androidboot.hardware=geehrc
-TARGET_KERNEL_CONFIG := cyanogenmod_e975_defconfig
+TARGET_KERNEL_CONFIG := f93_e975_defconfig
 
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
 
 TARGET_BOOTLOADER_BOARD_NAME := geehrc
 TARGET_BOOTLOADER_NAME=e975
+
+TARGET_OTA_ASSERT_DEVICE := e975,geehrc
 
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/e975/bluetooth
 
@@ -71,3 +73,36 @@ BOARD_SEPOLICY_UNION := \
 TARGET_QCOM_AUDIO_VARIANT := caf
 
 BOARD_HARDWARE_CLASS += device/lge/e975/cmhw
+
+#TWRP config
+DEVICE_RESOLUTION := 720x1280
+RECOVERY_SDCARD_ON_DATA := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+BOARD_HAS_NO_REAL_SDCARD := true
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+TW_INCLUDE_JB_CRYPTO := true
+TW_FLASH_FROM_STORAGE := true
+TW_NO_USB_STORAGE := true
+HAVE_SELINUX := true
+
+#TW_INCLUDE_DUMLOCK := true
+TW_INTERNAL_STORAGE_PATH := "/data/media"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/usb-otg"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "usb-otg"
+TARGET_RECOVERY_INITRC := device/lge/e975/recovery/init.rc
+TW_BRIGHTNESS_PATH := /sys/class/backlight/lm3530/brightness
+TW_MAX_BRIGHTNESS := 255
+
+#MultiROM config. MultiROM also uses parts of TWRP config
+MR_INPUT_TYPE := type_b
+MR_INIT_DEVICES := device/lge/e975/mr_init_devices.c
+#MR_RD_ADDR := 0x82500000
+MR_RD_ADDR := 0x82000000
+MR_DPI := hdpi
+MR_DPI_FONT := 128
+MR_FSTAB := device/lge/e975/twrp.fstab
+#MR_KEXEC_MEM_MIN := 0x85000000
+MR_KEXEC_MEM_MIN := 0x84000000
+#MR_USE_MROM_FSTAB := true
+#MR_INFOS := device/lge/e975/mrom_infos

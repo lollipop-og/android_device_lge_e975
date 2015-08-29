@@ -36,13 +36,26 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
 	$(LOCAL_PATH)/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-	$(LOCAL_PATH)/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
+	$(LOCAL_PATH)/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+	$(LOCAL_PATH)/FTM_PowerTable.XML:system/etc/wifi/FTM_PowerTable.XML
 
 PRODUCT_COPY_FILES += \
-        $(LOCAL_PATH)/mixer_paths.xml:system/etc/mixer_paths.xml
+        $(LOCAL_PATH)/mixer_paths.xml:system/etc/mixer_paths.xml \
+	$(LOCAL_PATH)/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/thermald-geehrc.conf:system/etc/thermald.conf
+        $(LOCAL_PATH)/00qcom:system/etc/init.d/00qcom \
+        $(LOCAL_PATH)/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
+        $(LOCAL_PATH)/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
+
+
+PRODUCT_COPY_FILES += \
+        $(LOCAL_PATH)/DxHDCP.cfg:system/etc/DxHDCP.cfg
+
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/thermald-geehrc.conf:system/etc/thermald.conf \
+	$(LOCAL_PATH)/thermald-geehrc.conf:system/etc/thermald-8064.conf \
+	$(LOCAL_PATH)/thermald-geehrc.conf:system/etc/thermald-engine-8064.conf
 
 PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/initlogo.rle:root/initlogo.rle888 \
@@ -91,9 +104,19 @@ PRODUCT_PACKAGES += \
 	keystore.msm8960
 
 PRODUCT_PROPERTY_OVERRIDES += \
+	rild.libpath=/system/lib/libril-qc-qmi-1.so \
+	rild.libargs=-d/dev/smd0 \
+	ril.subscription.types=NV,RUIM \
+	ro.ril.transmitpower=true \
+	persist.qcril.disable_retry=true \
 	telephony.lteOnCdmaDevice=0 \
 	ro.telephony.default_network=9 \
 	telephony.lteOnGsmDevice=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.gps.qmienabled=true \
+	persist.gps.qc_nlp_in_use=0 \
+	ro.gps.agps_provider=1
 
 PRODUCT_PACKAGES += \
 	wpa_supplicant_overlay.conf \
@@ -103,6 +126,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/init.gee.fm.sh:system/etc/init.gee.fm.sh \
 	$(LOCAL_PATH)/audio_policy.conf:system/vendor/etc/audio_policy.conf
+
+# initramdisk
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/root/init.gee-common.rc:root/init.gee-common.rc \
+	$(LOCAL_PATH)/root/init.qcom.usb.rc:root/init.qcom.usb.rc \
+	$(LOCAL_PATH)/root/init.qcom.usb.sh:root/init.qcom.usb.sh
 
 PRODUCT_PACKAGES += \
 	FM2 \

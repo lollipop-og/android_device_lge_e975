@@ -49,8 +49,8 @@
 /dev/block/mmcblk0p14     0660   system     system
 
 # seongmook.yim@lge.com 2012.09.17 setting permission of ks_bridge & efs_bridge
-/dev/ks_bridge              0660  system        system
-/dev/efs_bridge           0660    system        system
+/dev/ks_hsic_bridge              0660  system        system
+/dev/efs_hsic_bridge           0660    system        system
 
 /dev/pn544		0600	nfc	nfc
 
